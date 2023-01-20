@@ -27,6 +27,7 @@ const ProyectosProvider = ({children}) => {
 
     useEffect(() => {
         const obtenerProyectos = async () => {
+            setCargando(true);
             try {
                 const token = localStorage.getItem('token');
                 if(!token) return;
@@ -41,8 +42,11 @@ const ProyectosProvider = ({children}) => {
                 const { data } = await clienteAxios('/proyectos', config);
                 setProyectos(data)
             } catch (error) {
-                console.log(error)
+                console.log(error);
+                setCargando(false);
             }
+
+            setCargando(false);
         }
 
         obtenerProyectos();

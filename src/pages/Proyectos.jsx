@@ -1,16 +1,21 @@
-import { useEffect } from 'react'
-import io from 'socket.io-client'
 import useProyectos from "../hooks/useProyectos"
 import PreviewProyectos from '../components/PreviewProyectos';
 import Alerta from "../components/Alerta";
-
-let socket;
+import Spinner from '../components/Spinner'
 
 const Proyectos = () => {
 
-  const { proyectos, alerta } = useProyectos();
+  const { proyectos, alerta, cargando } = useProyectos();
 
   const { msg } = alerta;
+
+  if(cargando){
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <Spinner/>
+      </div>
+    )
+  }
 
   return (
     <div>
